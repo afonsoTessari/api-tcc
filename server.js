@@ -27,28 +27,6 @@ app.use(function(req, res, next) {
 
 // GET method route
 app.get('/', function (req, res) {
-
-	var user = new User({
-	    nome: "afonso",
-	    idade: 20
-	});
-
-	var marker = new Marker({
-		lon: 150,
-  		lat: 200,
-  		tex: "perigo"
-	});
-
-	marker.save(function(err) {
-		console.log(err); 
-	});
-
-	user.save(function(err) {
-		console.log(err); 
-	});
-
-
-
   res.json({success: true});
 });
 
