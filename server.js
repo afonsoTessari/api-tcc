@@ -40,7 +40,7 @@ app.post('/marker', function (req, res) {
 
 	var marker = new Marker({
 		coordinate: req.body.marker.coordinate,
-  		description: req.body.marker.description
+  	description: req.body.marker.description,
 	});
 
 	marker.save(function(err) {
@@ -48,6 +48,17 @@ app.post('/marker', function (req, res) {
 	});
 
   	res.json({success: true});
+});
+
+//get Array
+app.get("/ArrayFromApi", function(req, res) {
+  marker.find().exec(function (err, marker) {
+  if(err){
+    res.json({success: false, error: error.message});
+  }else{
+    res.json({success: true, marker: marker});
+  }
+});
 });
 
 app.listen(process.env.PORT || 3000, function() {
