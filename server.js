@@ -41,6 +41,7 @@ app.post('/marker', function (req, res) {
 	var marker = new Marker({
 		coordinate: req.body.marker.coordinate,
   	description: req.body.marker.description,
+    color:req.body.marker.color,
 	});
 
 	marker.save(function(err) {
@@ -52,13 +53,31 @@ app.post('/marker', function (req, res) {
 
 //get Array
 app.get("/ArrayFromApi", function(req, res) {
-  marker.find().exec(function (err, marker) {
+  Marker.find().exec(function (err, marker) {
   if(err){
     res.json({success: false, error: error.message});
   }else{
     res.json({success: true, marker: marker});
   }
 });
+});
+
+app.delete('/remove/:_id', function(req, res) {
+  if (!req.params._id) {
+    res.json({success: false, message: 'Marcador não encontrado'});
+  } else {
+
+      Marker.findOneAndRemove({_id: req.params._id}).exec()
+        .then(removed => {
+        console.log(removed);
+
+        res.json({ success: true, message: 'Marcador removido.' });
+      })
+      .catch(err => {
+        console.log("Error " + err.message);
+        res.json({ success: false, message: err.message });
+      });
+  }
 });
 
 app.listen(process.env.PORT || 3000, function() {

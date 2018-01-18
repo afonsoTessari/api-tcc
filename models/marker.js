@@ -7,6 +7,7 @@ var schema = new Mongoose.Schema({
   	latitude: {type: Number}
   },
   description: {type: String, require: true},
+  color: {type: String},
 });
 
 var Marker = Mongoose.model('Marker', schema);
