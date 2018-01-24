@@ -7,7 +7,8 @@ var schema = new Mongoose.Schema({
   	latitude: {type: Number}
   },
   description: {type: String, require: true},
-  color: {type: String},
+  category: {type: String, require: true},
+  user: {type: Mongoose.Schema.Types.ObjectId, ref: 'User', required: true}
 });
 
 var Marker = Mongoose.model('Marker', schema);
